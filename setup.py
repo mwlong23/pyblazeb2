@@ -11,7 +11,7 @@ setuptools.setup(
     description="A compact library for interacting with Backblaze b2 buckets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mwlong23/pyblaze-b2.git",
+    url="https://github.com/mwlong23/pyblazeb2",
     packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),
     classifiers=(
         'Development Status :: 3 - Alpha',
@@ -21,7 +21,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     project_urls={
-        'Source': 'https://github.com/mwlong23/pyblaze-b2',
-        'Tracker': 'https://github.com/mwlong23/pyblaze-b2/issues',
+        'Source': 'https://github.com/mwlong23/pyblazeb2',
+        'Tracker': 'https://github.com/mwlong23/pyblazeb2/issues',
     }
 )
