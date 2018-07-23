@@ -1,1 +1,1 @@
-name = "pyblazeb2"
+from .pyblazeb2 import BackBlazeB2
