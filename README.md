@@ -5,9 +5,10 @@
     
     
     To install run: 
-    ```
-    pip install pyblazeb2
-    ```
+    
+```python 
+ pip install pyblazeb2
+```
     
 # Examples
 -------------------------------
