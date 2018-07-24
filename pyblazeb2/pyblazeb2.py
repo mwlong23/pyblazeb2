@@ -416,7 +416,7 @@ class BackBlazeB2(object):
             else:
                 print("WARNING: No files uploaded")
         return nfiles
-    #
+
     def _api_request(self, url, data, headers, timeout=None):
         self._authorize_account(timeout)
         request = urllib.request.Request(url, json.dumps(data).encode('utf-8'), headers)
@@ -433,6 +433,6 @@ class BackBlazeB2(object):
                 if not chunk:
                     break
                 f.write(chunk)
-            #TODO: Does the file need to be closed?
+            f.close()
         return True
 
