@@ -470,3 +470,4 @@ class BackBlazeB2(object):
 
 
 if __name__ == "__main__":
+    print('This module has no command line interface.')
