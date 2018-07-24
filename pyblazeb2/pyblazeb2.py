@@ -468,6 +468,3 @@ class BackBlazeB2(object):
             #TODO: Does the file need to be closed?
         return True
 
-
-if __name__ == "__main__":
-    print('This module has no command line interface.')
