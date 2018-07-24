@@ -236,29 +236,7 @@ class BackBlazeB2(object):
                                  {'bucketId': bucket['bucketId'],
                                   'bucketType': bucket_type},
                                  {'Authorization': self.authorization_token}, timeout)
-    #
-    #     def list_file_versions(self, bucket_id=None, bucket_name=None, maxFileCount=100, startFileName=None, prefix=None,
-    #                            timeout=None):
-    #         bucket = self.get_bucket_info(bucket_id=bucket_id,
-    #                                       bucket_name=bucket_name, timeout=timeout)
-    #         if maxFileCount > 10000:
-    #             maxFileCount = 10000
-    #
-    #         if maxFileCount < 0:
-    #             maxFileCount = 100
-    #
-    #         data = {'bucketId': bucket['bucketId'], 'maxFileCount': maxFileCount}
-    #
-    #         if startFileName is not None:
-    #             data['startFileName'] = startFileName
-    #         if prefix is not None:
-    #             data['prefix'] = prefix
-    #
-    #         return self._api_request(
-    #             '%s/b2api/v1/b2_list_file_versions' % self.api_url,
-    #             data,
-    #             {'Authorization': self.authorization_token}, timeout)
-    #
+
     def list_file_names(self, bucket_id=None, bucket_name=None, maxFileCount=100, startFileName=None, prefix=None,
                         timeout=None):
         bucket = self.get_bucket_info(bucket_id=bucket_id,
@@ -281,14 +259,6 @@ class BackBlazeB2(object):
             data,
             {'Authorization': self.authorization_token}, timeout)
 
-    #     def hide_file(self, file_name, bucket_id=None, bucket_name=None, timeout=None):
-    #         bucket = self.get_bucket_info(bucket_id=bucket_id,
-    #                                       bucket_name=bucket_name)
-    #         return self._api_request(
-    #             '%s/b2api/v1/b2_list_file_versions' % self.api_url,
-    #             {'bucketId': bucket['bucketId'], 'fileName': file_name},
-    #             {'Authorization': self.authorization_token}, timeout)
-    #
     def delete_file_version(self, file_name, file_id, timeout=None):
         return self._api_request(
             '%s/b2api/v1/b2_delete_file_version' % self.api_url,
