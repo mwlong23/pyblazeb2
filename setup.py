@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyblazeb2",
-    version="0.12",
+    version="0.13",
     author="Mitchell Long",
     author_email='meechllada@gmail.com',
     description="A compact library for interacting with Backblaze b2 buckets",
