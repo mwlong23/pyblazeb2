@@ -455,8 +455,6 @@ class BackBlazeB2(object):
         response.close()
         return response_data
 
-
-    #TODO: Download to downloads folder instead of script directory
     @staticmethod
     def write_file(response, dst_file_name):
         with open(dst_file_name, 'wb') as f:
