@@ -1,11 +1,11 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pyblazeb2",
-    version="0.11",
+    version="0.12",
     author="Mitchell Long",
     author_email='meechllada@gmail.com',
     description="A compact library for interacting with Backblaze b2 buckets",
