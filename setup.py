@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyblazeb2",
-    version="0.13",
+    version="0.0.22",
     author="Mitchell Long",
     author_email='meechllada@gmail.com',
     description="A compact library for interacting with Backblaze b2 buckets",
@@ -18,7 +18,6 @@ setuptools.setup(
         'Intended Audience :: Developers',
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
     ),
     project_urls={
         'Source': 'https://github.com/mwlong23/pyblazeb2',
