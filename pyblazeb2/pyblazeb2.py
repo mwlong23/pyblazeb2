@@ -112,14 +112,13 @@ class BackBlazeB2(object):
                                  {'accountId': self.account_id},
                                  {'Authorization': self.authorization_token}, timeout)
 
-    def get_bucket_info(self, bucket_id, bucket_name, timeout=None):
+    def get_bucket_info(self, bucket_id=None, bucket_name=None, timeout=None):
         bkt = None
         if not bucket_id and not bucket_name:
             raise Exception(
                 "get_bucket_info requires either a bucket_id or bucket_name")
         if bucket_id and bucket_name:
-            raise Exception(
-                "get_bucket_info requires only _one_ argument and not both bucket_id and bucket_name")
+            bucket_name = None
 
         buckets = self.list_buckets(timeout)['buckets']
         if not bucket_id:
@@ -162,6 +161,7 @@ class BackBlazeB2(object):
 
         self._authorize_account(timeout)
 
+        mm_file_data = None
         try:
             fp = open(path, 'rb')
             mm_file_data = mmap.mmap(fp.fileno(), 0, access=mmap.ACCESS_READ)
@@ -214,7 +214,7 @@ class BackBlazeB2(object):
             response = self.__url_open_with_timeout(request, timeout)
             response_data = json.loads(response.read())
         except urllib.error.HTTPError as error:
-            print(("ERROR: %s" % error.read()))
+            print(("ERROR: %s" % error.read().decode('utf-8')))
             raise
 
         response.close()
