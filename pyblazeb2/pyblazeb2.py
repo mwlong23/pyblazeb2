@@ -155,7 +155,7 @@ class BackBlazeB2(object):
                                  {'bucketId': bucket_id},
                                  {'Authorization': self.authorization_token}, timeout)
 
-    def upload_file(self, path, bucket_id=None, bucket_name=None,
+    def upload_file(self, path, filename=None, bucket_id=None, bucket_name=None,
                     thread_upload_url=None,
                     thread_upload_authorization_token=None, timeout=None):
 
@@ -165,7 +165,7 @@ class BackBlazeB2(object):
         try:
             fp = open(path, 'rb')
             mm_file_data = mmap.mmap(fp.fileno(), 0, access=mmap.ACCESS_READ)
-            filename = re.sub('^/', '', path)
+            filename = re.sub('^/', '', filename)
             filename = re.sub('//', '/', filename)
 
         except Exception as e:
@@ -192,9 +192,9 @@ class BackBlazeB2(object):
             cur_upload_url = url['uploadUrl']
             cur_upload_authorization_token = url['authorizationToken']
 
-        # fixup filename
-        # TODO: make windows compatible
-        filename = os.path.basename(path)
+        # if no filename is specified, use local path
+        if not filename:
+            filename = os.path.basename(path)
 
         # All the whitespaces in the filename should be converted to %20
         #https://stackoverflow.com/questions/1695183/how-to-percent-encode-url-parameters-in-python
