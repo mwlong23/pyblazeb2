@@ -15,4 +15,4 @@ dist/*
 
 # intellij metadata
 .idea/*
-pyblazeb2.iml
+*.iml
