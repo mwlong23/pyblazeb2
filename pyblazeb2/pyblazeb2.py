@@ -10,7 +10,9 @@ import json
 import os
 import re
 import threading
-import urllib.request, urllib.error, urllib.parse
+import urllib.request, \
+       urllib.error, \
+       urllib.parse
 #
 # #
 # # Author: Mitch Long <mwlong23@gmail.com>
@@ -21,7 +23,7 @@ import urllib.request, urllib.error, urllib.parse
 # #   https://www.backblaze.com/b2/docs/
 
 
-class BackBlazeB2(object):
+class PyBlazeB2(object):
     def __init__(self, account_id, app_key, mt_queue_size=12, valid_duration=24 * 60 * 60,
                  auth_token_lifetime_in_seconds=2 * 60 * 60, default_timeout=None):
         self.account_id = account_id
@@ -36,7 +38,10 @@ class BackBlazeB2(object):
         self.upload_queue = queue.Queue(maxsize=mt_queue_size)
         self.default_timeout = default_timeout
         self._last_authorization_token_time = None
-        self.auth_token_lifetime_in_seconds = auth_token_lifetime_in_seconds
+        self.auth_token_lifetime_in_seconds = auth_token_lifetime_in_seconds,
+        self.upload_queue = None,
+        self.threads = None
+        self.upload_queue_done = True
 
     def authorize_account(self, timeout=None):
         id_and_key = self.account_id + ':' + self.app_key
@@ -197,7 +202,8 @@ class BackBlazeB2(object):
             filename = os.path.basename(path)
 
         # All the whitespaces in the filename should be converted to %20
-        #https://stackoverflow.com/questions/1695183/how-to-percent-encode-url-parameters-in-python
+
+        # https://stackoverflow.com/questions/1695183/how-to-percent-encode-url-parameters-in-python
         filename = urllib.parse.quote(filename, safe='')
 
         content_length = os.path.getsize(path)
@@ -276,7 +282,7 @@ class BackBlazeB2(object):
         return self._api_request('%s/b2api/v1/b2_get_file_info' % self.api_url,
                                  {'fileId': file_id},
                                  {'Authorization': self.authorization_token}, timeout)
-    #
+
     def download_file_with_authorized_url(self, url, dst_file_name, force=False, timeout=None):
         #TODO: Windows path compatability
         if os.path.exists(dst_file_name) and not force:
@@ -286,9 +292,10 @@ class BackBlazeB2(object):
         request = urllib.request.Request(
             url, None, {})
         response = self.__url_open_with_timeout(request, timeout)
-        #TODO: default downloaded files to downloads folder
-        return BackBlazeB2.write_file(response, dst_file_name)
-    #
+
+        # TODO: default downloaded files to downloads folder
+        return PyBlazeB2.write_file(response, dst_file_name)
+
     def download_file_by_name(self, file_name, dst_file_name, bucket_id=None,
                               bucket_name=None, force=False, timeout=None):
         if os.path.exists(dst_file_name) and not force:
@@ -311,7 +318,7 @@ class BackBlazeB2(object):
             url, None, headers)
         response = self.__url_open_with_timeout(request, timeout)
 
-        return BackBlazeB2.write_file(response, dst_file_name)
+        return PyBlazeB2.write_file(response, dst_file_name)
 
     def download_file_by_id(self, file_id, dst_file_name, force=False, timeout=None):
         if os.path.exists(dst_file_name) and not force:
@@ -324,7 +331,7 @@ class BackBlazeB2(object):
         request = urllib.request.Request(url, None,
                                          {'Authorization': self.authorization_token})
         resp = self.__url_open_with_timeout(request, timeout)
-        return BackBlazeB2.write_file(resp, dst_file_name)
+        return PyBlazeB2.write_file(resp, dst_file_name)
 
     def _upload_worker(self, bucket_id, bucket_name):
         # B2 started requiring a unique upload url per thread
